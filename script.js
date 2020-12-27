@@ -5,8 +5,11 @@ let numberColorsSeen = 0;
 
 // Settings
 let secondsBeforeGameStart = 5;
-let numberOfColors = 10;
-let secondsBetweenColors = 6;
+let numberOfColors = 3;
+let secondsBetweenColors = 2;
+
+// TODO restrict input into field as only hexadecimal 
+// TODO change input to 6 separate input fields
 
 /** Given colors in form of #XXXXXX and #YYYYYY, 
 determines score that should be awarded. */
@@ -33,7 +36,6 @@ getRandomColor = () => {
 };
 
 generateNewColor = () => {
-	$("#score").html(score);
 	currentColor = getRandomColor();
 	$("#color").css("background-color", currentColor);
 	numberColorsSeen++;
@@ -41,11 +43,7 @@ generateNewColor = () => {
 	$("#colors-seen").html(numberColorsSeen + "/" + numberOfColors)
 };
 
-nextColor = () => {
-	console.log("colorScore: " + "#" + $("#answer").val() + ", " + currentColor);
-	score += colorScore("#" + $("#answer").val(), currentColor);
-	generateNewColor();
-}
+
 
 startGame = () => {
 	let count = secondsBetweenColors;
@@ -53,12 +51,16 @@ startGame = () => {
 	timerIntervalID = setInterval(() => {
 		$("#time-left").html(count);
 		if(count == 0) {
+			score += colorScore("#" + $("#answer").val(), currentColor);
+			$("#score").html(score);
 			if(numberColorsSeen == numberOfColors) {
 				// 'round' over 
 				clearInterval(timerIntervalID);
+				postGame();
 				// TODO at end, display score in color box
 			} else {
-				nextColor();
+				//console.log("colorScore: " + "#" + $("#answer").val() + ", " + currentColor);
+				generateNewColor();
 				count = secondsBetweenColors;
 			}
 		} else {
@@ -67,7 +69,13 @@ startGame = () => {
 	}, 1000);
 };
 
+postGame = () => {
+	$("#color-text").html(score)	;
+}
+
 $(document).ready(() => {
+	// TODO: Press button to start
+	// Countdown timer before game starts
 	let countBeforeStart = secondsBeforeGameStart;
 	$("#color-text").css("font-size", 36);
 	$("#color-text").html(countBeforeStart);
