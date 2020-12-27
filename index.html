@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Color Guessr</title>
+	<meta charset="UTF-8">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">	
+</head>
+<body>
+	<div id="game">
+		<div id="header-bar">
+			<div id="time-left">X</div>
+			<div id="colors-seen">X/X</div>
+			<div id="score">XXXX</div>
+		</div>
+		<div id="color-box">
+			<div id="color">
+				<div id="color-text"></div>
+			</div>
+		</div>
+		<div id="answer-box">
+			<input id="answer" 
+				maxlength=6 
+				pattern="[0-9A-Fa-f]+">
+		</div>
+	</div>
+	<script src="script.js"></script>
+</body>
+</html>
